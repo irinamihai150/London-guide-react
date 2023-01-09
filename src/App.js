@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Title from "./components/Title";
+import Dropdown from "./components/Dropdown";
+import Button from "./components/Button";
+import React, { useState } from "react";
+import "./App.css";
+
+import InfoDetails from "./components/InfoDetails";
 
 function App() {
+  const [selectedButton, setSelectedButton] = useState("pharmacies");
+  const [city, setCity] = useState("Stratford");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <Dropdown setCity={setCity} />
+      <Button setSelectedButton={setSelectedButton} />
+      <InfoDetails city={city} selectedButton={selectedButton} />
     </div>
   );
 }

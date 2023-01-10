@@ -18,7 +18,15 @@ function InfoDetails({ selectedButton, city }) {
         console.log("Error getting fake data: " + error);
       });
   }, [selectedButton, city]);
-  console.log(info);
+    info.sort(function (a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
   return (
     <div>
       <Table striped bordered hover responsive className="table">

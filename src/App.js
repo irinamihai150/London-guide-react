@@ -7,8 +7,8 @@ import "./App.css";
 import InfoDetails from "./components/InfoDetails";
 
 function App() {
-  const [selectedButton, setSelectedButton] = useState("pharmacies");
-  const [city, setCity] = useState("Stratford");
+  const [selectedButton, setSelectedButton] = useState("");
+  const [city, setCity] = useState("");
   return (
     <div className="App">
       <Title />

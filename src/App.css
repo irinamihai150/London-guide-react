@@ -26,3 +26,12 @@ body {
 .table {
   margin: 2em
 }
+
+.footer {
+  text-align: center;
+  padding: 1em;
+}
+.search-input {
+  align-items: center;
+  margin:2em;
+}

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-
-// const getFilteredNames = (query, names) => {
-//   return sortedInfo.names.filter((el) => !query || el.name.includes(query));
-// };
+import Spinner from "./Spinner";
 
 function InfoDetails({ selectedButton, city }) {
   const [info, setInfo] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,12 +33,10 @@ function InfoDetails({ selectedButton, city }) {
     }
     return 0;
   });
-//   console.log(info.names);
-//   let info2 = Object.keys(info);
-// let filtered=  info2.filter((key) => key.includes("NAME"))
-// console.log(filtered)
-//   console.log(info2);
-  return (
+
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div>
       <Table striped bordered hover responsive className="table">
         <thead>
@@ -50,7 +45,7 @@ function InfoDetails({ selectedButton, city }) {
             <th>Name</th>
             <th>Website</th>
             <th>Phone</th>
-            <th>Adress</th>
+            <th>Address</th>
           </tr>
         </thead>
         <tbody>

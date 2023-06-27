@@ -7,6 +7,7 @@ function InfoDetails({ selectedButton, city }) {
 	const [errorMessage, setErrorMessage] = useState("")
 	const [isLoading, setIsLoading] = useState(true)
 	const [searchTerm, setSearchTerm] = useState("")
+	const [filteredInfo, setFilteredInfo] = useState([])
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -33,21 +34,36 @@ function InfoDetails({ selectedButton, city }) {
 		}
 	}, [selectedButton, city])
 
-	const filteredInfo = info.filter((i) =>
-		i.name.toLowerCase().includes(searchTerm.toLowerCase())
-	)
+	useEffect(() => {
+		setFilteredInfo(
+			info.filter((i) =>
+				i.name.toLowerCase().includes(searchTerm.toLowerCase())
+			)
+		)
+	}, [info, searchTerm])
+
+	const handleSearch = () => {
+		setFilteredInfo(
+			info.filter((i) =>
+				i.name.toLowerCase().includes(searchTerm.toLowerCase())
+			)
+		)
+	}
 
 	return (
 		<div>
 			{isLoading && <Spinner />}
 			{!isLoading && city && (
 				<>
-					<input
-						type='text'
-						placeholder='Search by name'
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-					/>
+					<div>
+						<input
+							type='text'
+							placeholder='Search by name'
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+						/>
+						<button onClick={handleSearch}>Search</button>
+					</div>
 					<Table striped bordered hover responsive className='table'>
 						<thead>
 							<tr>

@@ -62,7 +62,7 @@ function InfoDetails({ selectedButton, city }) {
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
 						/>
-						{/* <button onClick={handleSearch}>Search</button> */}
+						<button onClick={handleSearch}>Search</button>
 					</div>
 					<Table striped bordered hover responsive className='table'>
 						<thead>

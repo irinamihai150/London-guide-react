@@ -6,11 +6,12 @@ function InfoDetails({ selectedButton, city }) {
 	const [info, setInfo] = useState([])
 	const [errorMessage, setErrorMessage] = useState("")
 	const [isLoading, setIsLoading] = useState(true)
+	const [searchTerm, setSearchTerm] = useState("")
 
 	useEffect(() => {
 		setIsLoading(true)
-		setInfo([]) // Clear previous data when city changes
-		setErrorMessage("") // Clear previous error message
+		setInfo([])
+		setErrorMessage("")
 		if (city) {
 			fetch(`https://london-express.onrender.com/${selectedButton}/${city}`)
 				.then((res) => {
@@ -32,44 +33,46 @@ function InfoDetails({ selectedButton, city }) {
 		}
 	}, [selectedButton, city])
 
-	info.sort(function (a, b) {
-		if (a.name < b.name) {
-			return -1
-		}
-		if (a.name > b.name) {
-			return 1
-		}
-		return 0
-	})
+	const filteredInfo = info.filter((i) =>
+		i.name.toLowerCase().includes(searchTerm.toLowerCase())
+	)
 
 	return (
 		<div>
 			{isLoading && <Spinner />}
 			{!isLoading && city && (
-				<Table striped bordered hover responsive className='table'>
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Website</th>
-							<th>Phone</th>
-							<th>Address</th>
-						</tr>
-					</thead>
-					<tbody>
-						{info.map((i) => {
-							return (
-								<tr key={i.id}>
-									<td>{i.id}</td>
-									<td>{i.name}</td>
-									<td>{i.website}</td>
-									<td>{i.phone}</td>
-									<td>{i.address}</td>
-								</tr>
-							)
-						})}
-					</tbody>
-				</Table>
+				<>
+					<input
+						type='text'
+						placeholder='Search by name'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+					<Table striped bordered hover responsive className='table'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Website</th>
+								<th>Phone</th>
+								<th>Address</th>
+							</tr>
+						</thead>
+						<tbody>
+							{filteredInfo.map((i) => {
+								return (
+									<tr key={i.id}>
+										<td>{i.id}</td>
+										<td>{i.name}</td>
+										<td>{i.website}</td>
+										<td>{i.phone}</td>
+										<td>{i.address}</td>
+									</tr>
+								)
+							})}
+						</tbody>
+					</Table>
+				</>
 			)}
 			{!isLoading && !city && <p>Please select a city.</p>}
 			{errorMessage && <p>{errorMessage}</p>}

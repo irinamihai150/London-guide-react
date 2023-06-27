@@ -5,7 +5,7 @@ import Footer from "./components/Footer"
 import React, { useState } from "react"
 import "./App.css"
 import InfoDetails from "./components/InfoDetails"
-import Search from "./components/Search"
+
 
 function App() {
 	const [selectedButton, setSelectedButton] = useState("")
